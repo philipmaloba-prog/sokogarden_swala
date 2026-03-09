@@ -15,7 +15,7 @@ def signup():
     password=request.form['password']
     phone=request.form['phone']
     # connection to database
-    connection=pymysql.connect(host='mysql-philipswala.alwaysdata.net',user='philipswala',password='modcom2026',database='philipswala_dailyyoghurts')
+    connection=pymysql.connect(host='localhost',user='root',password='',database='Dailyyoghurt_swala')
     # cursor object==initialize connection/manipulation of the database
     cursor=connection.cursor()
     # sql query
@@ -35,7 +35,7 @@ def signin():
     username=request.form['username']
     password=request.form['password']
     # connect to database
-    connection=pymysql.connect(host='mysql-philipswala.alwaysdata.net',user='philipswala',password='modcom2026',database='philipswala_dailyyoghurts')
+    connection=pymysql.connect(host='localhost',user='root',password='',database='Dailyyoghurt_swala')
     cursor=connection.cursor(pymysql.cursors.DictCursor)
     # do sql query
     sql='select* from users where username=%s and password=%s'
@@ -63,7 +63,7 @@ def add_product():
     photo_path=os.path.join(app.config['UPLOAD_FOLDER'])
     product_photo.save(photo_path)
     # connection to database
-    connection=pymysql.connect(host='mysql-philipswala.alwaysdata.net',user='philipswala',password='modcom2026',database='philipswala_dailyyoghurts')
+    connection=pymysql.connect(host='localhost',user='root',password='',database='Dailyyoghurt_swala')
     cursor=connection.cursor()
     # do sql query
     sql='insert into product_details(product_name,product_description,product_cost,product_photo)values(%s,%s,%s,%s)'
@@ -76,7 +76,7 @@ def add_product():
 # get products
 @app.route('/api/get_product_details')
 def get_product():
-    connection=pymysql.connect(host='mysql-philipswala.alwaysdata.net',user='philipswala',password='modcom2026',database='philipswala_dailyyoghurts')
+    connection=pymysql.connect(host='localhost',user='root',password='',database='Dailyyoghurt_swala')
     cursor=connection.cursor(pymysql.cursors.DictCursor)
     sql='select* from product_details'
     cursor.execute(sql)
@@ -150,5 +150,5 @@ def mpesa_payments():
             print(response.text) # 
             # Give a Response
             return jsonify({"message": "An MPESA Prompt has been sent to Your Phone, Please Check & Complete Payment"})
-# if __name__ == '__main__':
-#     app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True)
